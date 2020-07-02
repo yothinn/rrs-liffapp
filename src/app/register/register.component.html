@@ -1,0 +1,226 @@
+<!-- <form name="personInfoGroup" [formGroup]="personInfoGroup" novalidate *ngIf="!isShowPolicyDesc"> -->
+<form name="personInfoGroup" [formGroup]="personInfoGroup" novalidate>
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayoutAlign="start center">
+            ข้อมูลสมาชิก
+        </div>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>คำนำหน้าชื่อ</mat-label>
+      <mat-select #title formControlName="title">
+        <mat-option *ngFor = "let title of titleList" [value]="title">
+          {{title}}
+        </mat-option>
+      </mat-select>
+      <mat-error 
+          *ngIf="personInfoGroup.get('title').hasError('required')"> 
+          กรุณาเลือก คำนำหน้าชื่อ </mat-error
+      > 
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>ชื่อ</mat-label>
+        <input
+            matInput
+            #firstName
+            formControlName="firstName"
+            placeholder="ชื่อ"
+        />
+        <mat-error 
+            *ngIf="personInfoGroup.get('firstName').hasError('required')"> 
+            กรุณาระบุ ชื่อ </mat-error
+        > 
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>นามสกุล</mat-label>
+        <input 
+            matInput 
+            #lastName
+            formControlName="lastName" 
+            placeholder="นามสกุล" 
+        />
+        <mat-error
+            *ngIf="personInfoGroup.get('lastName').hasError('required')">
+            กรุณาระบุ นามสกุล </mat-error
+        >
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="outline">
+        <mat-label>เลขที่ประจำตัวประชาชน( 13 หลัก )</mat-label>
+        <input
+            matInput
+            maxlength="13"
+            formControlName="persanalId"
+            placeholder="ใช้เพื่อตรวจสอบว่าเป็นผู้ถือหุ้นหรือไม่?"
+        />
+        <mat-error 
+            *ngIf="personInfoGroup.get('persanalId').dirty">
+            กรุณาระบุ เลขที่บัตรประจำตัวประชาชนของตัวท่าน </mat-error
+        >
+      </mat-form-field> -->
+
+      <mat-form-field appearance="outline">
+        <mat-label>เบอร์มือถือ(10 หลัก)</mat-label>
+        <input
+            matInput
+            maxlength="10"
+            formControlName="mobileNo"
+            placeholder="0818887777"
+        />
+        <mat-error
+            *ngIf="personInfoGroup.get('mobileNo').hasError('required')">
+            กรุณาระบุ เบอร์โทรศัพท์มือถือของท่าน </mat-error
+        >
+        <mat-error *ngIf="personInfoGroup.get('mobileNo').dirty"
+          >เบอร์โทรศัพท์มือถือของท่านไม่ถูกต้อง</mat-error
+        >
+      </mat-form-field>
+
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayoutAlign="start center">
+            ที่อยู่
+        </div>
+    </div>
+    
+    <mat-form-field appearance="outline">
+        <mat-label>บ้านเลขที่/หมู่บ้าน/ซอย</mat-label>
+        <input matInput formControlName="addressLine1" />
+        <mat-error
+          *ngIf="personInfoGroup.get('addressLine1').hasError('required')"
+          >กรุณาระบุ บ้านเลขที่/หมู่บ้าน</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>ถนน</mat-label>
+        <input matInput formControlName="addressStreet" />
+        <mat-error
+          *ngIf="personInfoGroup.get('addressStreet').hasError('required')"
+          >กรุณาระบุ ถนน</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>รหัสไปรษณีย์</mat-label>
+        <input
+            matInput
+            maxlength="5"
+            formControlName="addressPostalCode"
+            placeholder="11001"
+        />
+        <!-- <input
+            matInput
+            maxlength="5"
+            formControlName="addressPostalCode"
+            placeholder="11001"
+            [matAutocomplete]="auto"
+            (keyup)="updateFilter($event)"
+        /> -->
+        <!-- <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="getPosts($event.option)"
+        > -->
+          <!-- <mat-option
+            *ngFor="let postcode of postcodesList.slice(0, 10)"
+            [value]="postcode.postcode"
+          >
+            <span>{{ postcode.postcode }}</span> |
+            <small>{{ postcode.subdistrict }}</small> |
+            <small>{{ postcode.district }}</small> |
+            <small>{{ postcode.province }}</small>
+          </mat-option>
+        </mat-autocomplete> -->
+        <mat-error
+          *ngIf="
+            personInfoGroup.get('addressPostalCode').hasError('required') ||
+            personInfoGroup.dirty
+          "
+          >กรุณาระบุ รหัสไปรษณีย์</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>ตำบล/แขวง</mat-label>
+        <input matInput formControlName="addressSubDistrict" />
+        <mat-error
+          *ngIf="personInfoGroup.get('addressSubDistrict').hasError('required')"
+          >กรุณาระบุ ตำบล/แขวง</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>อำเภอ/เขต</mat-label>
+        <input matInput formControlName="addressDistrict" />
+        <mat-error
+          *ngIf="personInfoGroup.get('addressDistrict').hasError('required')"
+          >กรุณาระบุ อำเภอ/เขต</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>จังหวัด</mat-label>
+        <input matInput formControlName="addressProvince" />
+        <mat-error
+          *ngIf="personInfoGroup.get('addressProvince').hasError('required')"
+          >กรุณาระบุ จังหวัด</mat-error
+        >
+      </mat-form-field>
+</form>
+<!-- <div class="accept-container">
+    <mat-checkbox
+      [(ngModel)]="acceptPolicy"
+      [disabled]="personInfoGroup.invalid"
+      color="primary"
+      (click)="getExistingData()"
+    >
+    </mat-checkbox>
+    <mat-label class="accept-text" *ngIf="!isExisting"
+      >ข้าพเจ้าได้อ่านและรับทราบข้อตกลง </mat-label
+    >
+
+    <mat-label class="accept-text" *ngIf="isExisting"
+        >ข้อมูลถูกต้องแล้ว</mat-label
+    >
+
+    <mat-label class="btn-more-detail" *ngIf="!isExisting" (click)="onPolicyClick()"
+      routerLink="policy"
+      >นโยบายความเป็นส่วนตัวของข้อมูล </mat-label
+    >
+    <mat-label class="accept-text" *ngIf="!isExisting"
+      >เรียบร้อยแล้ว </mat-label
+    >
+
+</div>
+
+<div fxLayout="column" *ngIf="isShowPolicyDesc">
+  <div fxFlex="100" fxLayoutAlign="start center">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<div class="btn-container">
+  <button
+  class="btn-back"
+  mat-raised-button
+  color="warn"
+  *ngIf="isShowPolicyDesc"
+  (click)="goBack()"
+  >
+    ย้อนกลับ
+  </button>
+  <button
+      mat-raised-button
+      color="warn"
+      [disabled]="personInfoGroup.invalid || !acceptPolicy || disSave"
+      (click)="save()"
+  >
+    ยืนยันข้อมูล
+  </button>
+</div> -->
+
+
+
+
+
